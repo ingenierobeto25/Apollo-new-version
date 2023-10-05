@@ -23,41 +23,51 @@ var marker = L.marker([45.40820, -71.88290]).addTo(map);
 
 //function slider
 let index = 0
-let changeSlider= document.querySelectorAll('.test1')
-function next(){	
-	if(index>=0 && index<(changeSlider.length-1)){
-		indexSlider = changeSlider[index]
-		indexSlider= nextSlider(indexSlider)
-		index++		
+let changeSlider= document.querySelectorAll('.changeClass')
+function next(){
+	index++	
+	if(index>changeSlider.length-1){
+		index =0				
 	}
-	else {		
-		index =0		
-		indexSlider = returnSlider(indexSlider)
-	}		
-	
+	nextSlider()			
 }
 
 function previous(){
-	if(index>=0 && index<(changeSlider.length-1)){
-		indexSlider = changeSlider[index]
-		indexSlider= nextSlider(indexSlider)
-		index++		
+	index--	
+	if(index<0){
+		index = changeSlider.length-1				
 	}
-	else {		
-		index =0		
-		indexSlider = returnSlider(indexSlider)
-	}
+	prevSlider()
 	
 }
-function nextSlider(indexSlider) {
-	indexSlider.classList.remove('active')
-	indexSlider = changeSlider[index+1]
-	indexSlider.classList.add('active')
-	return indexSlider
+
+function nextSlider() {
+	if(index===0){
+		indexSlider = changeSlider[2]	
+		removeClass(indexSlider)		
+	}else{
+		indexSlider = changeSlider[index-1]	
+		removeClass(indexSlider)		
+	}
+	display()	
 }
- function returnSlider(indexSlider){
-	indexSlider.classList.remove('active')
+
+function prevSlider(){
+	if(index===2){
+		indexSlider = changeSlider[0]	
+		removeClass(indexSlider)
+	}else{
+		indexSlider = changeSlider[index+1]	
+		removeClass(indexSlider)		
+	}	
+	display()
+}
+
+function display(){
 	indexSlider = changeSlider[index]
 	indexSlider.classList.add('active')
-	return indexSlider
- }
+}
+
+function removeClass(indexSlider){
+	indexSlider.classList.remove('active')
+}
